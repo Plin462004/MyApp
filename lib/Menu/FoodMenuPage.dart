@@ -1,10 +1,8 @@
 // Menu/FoodMenuPage.dart
 import 'package:flutter/material.dart';
-import 'package:myflutter/Menu/map.dart';
 
 import '../Auth/GetStart.dart';
 import '../Auth/LoginCard.dart';
-import '../Menu/map.dart';
 
 class FoodMenuPage extends StatefulWidget {
   const FoodMenuPage({super.key});
@@ -346,15 +344,6 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const GetStartedScreen()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.restaurant_menu, color: Colors.teal),
-            title: const Text('MAP'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyApp()));
             },
           ),
           ListTile(

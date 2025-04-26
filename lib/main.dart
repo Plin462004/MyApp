@@ -1,32 +1,26 @@
 // main.dart
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'Profile/Setting.dart';
+import 'Setting/Setting.dart';
 import 'Menu/FoodMenuPage.dart';
-import 'Menu/MaximApp.dart';
-import 'Menu/Ex.dart';
-import 'Menu/Delivery.dart';
+import 'Homepage/Dokkeo.dart';
+import 'Homepage/Delivery.dart';
 
-
+// *** เพิ่มฟังก์ชัน main() ตรงนี้ ***
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
   runApp(
     EasyLocalization(
-      supportedLocales: [
-        Locale('la'),
-        Locale('en'),
-        Locale('th'),
-        Locale('ch'),
-        Locale('vi'),
-      ],
-      path: 'assets/lang',
-      fallbackLocale: Locale('la'),
+      supportedLocales: const [Locale('en'), Locale('lo')], // ภาษาอังกฤษ, ภาษาลาว
+      path: 'assets/Lang', // เปลี่ยนตรงนี้ถ้าโฟลเดอร์ภาษาอยู่ที่อื่น
+      fallbackLocale: const Locale('en'),
       child: const MyApp(),
     ),
   );
 }
+// *******************************************
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -59,10 +53,9 @@ class _MainHomePageState extends State<MainHomePage> {
   int selectedIndex = 0;
 
   final List<Widget> _pages = const [
-    MaximApp(),
-    Ex(),
-    DeliveryPage(),
+    Dokkeo(),
     FoodMenuPage(),
+    MaximApp(),
     Setting(),
   ];
 
@@ -112,12 +105,8 @@ class _MainHomePageState extends State<MainHomePage> {
                 label: "ລາຍການໂປດ".tr(),
               ),
               BottomNavigationBarItem(
-                icon: const Icon(Icons.star),
+                icon: const Icon(Icons.menu),
                 label: "ເມນູ".tr(),
-              ),
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.favorite),
-                label: "ໂປຮໄຟລ໌".tr(),
               ),
             ],
           ),

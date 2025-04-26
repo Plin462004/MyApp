@@ -1,4 +1,4 @@
-// Profile/Setting.dart
+// Setting/Setting.dart
 import 'package:flutter/material.dart';
 
 class Setting extends StatelessWidget {
@@ -65,7 +65,7 @@ class HomePage extends StatelessWidget {
                           ),
                           alignment: Alignment.center,
                           child: const Text(
-                            "maxim",
+                            "Dokkeo",
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -114,7 +114,7 @@ class HomePage extends StatelessWidget {
                       const SizedBox(height: 10),
                       const Text(
                         "ສ້າງລາຍໄດ້ໃນການເດີນທາງ",
-                        style: TextStyle(fontSize: 14, color: Color(0xFF333333)),
+                        style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 255, 255, 255)),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 16),
@@ -123,7 +123,7 @@ class HomePage extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
+                            backgroundColor: Colors.black26,
                             foregroundColor: Colors.white,
                             // Increased vertical padding from 10 to 15 for a taller button
                             padding: const EdgeInsets.symmetric(vertical: 15),

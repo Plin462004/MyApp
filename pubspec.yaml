@@ -82,11 +82,12 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/flags/
-    - assets/lang/la.json
-    - assets/lang/th.json
-    - assets/lang/en.json
-    - assets/lang/ch.json
-    - assets/lang/vi.json
+    - assets/cars/
+    - assets/lang/
+    - assets/lang/
+    - assets/lang/
+    - assets/lang/
+    - assets/lang/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
