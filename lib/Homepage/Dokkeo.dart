@@ -82,9 +82,21 @@ class _HomePageState extends State<HomePage> {
       elevation: 0,
       title: Row(
         children: const [
-          Text("D", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black)),
-          Text("o", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal)),
-          Text("kkeo", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black)),
+          Text("D",
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
+          Text("o",
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal)),
+          Text("kkeo",
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black)),
         ],
       ),
       actions: [
@@ -92,7 +104,8 @@ class _HomePageState extends State<HomePage> {
           alignment: Alignment.center,
           children: [
             IconButton(
-              icon: Icon(Icons.notifications_outlined, color: Colors.black87, size: 26),
+              icon: Icon(Icons.notifications_outlined,
+                  color: Colors.black87, size: 26),
               onPressed: () {},
             ),
             Positioned(
@@ -101,9 +114,14 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 width: 16,
                 height: 16,
-                decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                decoration:
+                    BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                 child: Center(
-                  child: Text('9', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                  child: Text('9',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold)),
                 ),
               ),
             ),
@@ -126,18 +144,21 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildLocationFields() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Reduced vertical padding
+      padding: const EdgeInsets.symmetric(
+          horizontal: 16.0, vertical: 8.0), // Reduced vertical padding
       child: Column(
         children: [
           _buildLocationTile(
             leading: const CircleAvatar(
               backgroundColor: Colors.red,
               radius: 14, // Reduced size
-              child: Icon(Icons.location_on, color: Colors.white, size: 16), // Reduced size
+              child: Icon(Icons.location_on,
+                  color: Colors.white, size: 16), // Reduced size
             ),
             title: fromLocation ?? 'เดินทางจาก',
             onTap: () => _pickLocation((result) {
-              setState(() => fromLocation = 'Lat: ${result.latitude.toStringAsFixed(5)}, Lng: ${result.longitude.toStringAsFixed(5)}');
+              setState(() => fromLocation =
+                  'Lat: ${result.latitude.toStringAsFixed(5)}, Lng: ${result.longitude.toStringAsFixed(5)}');
             }),
           ),
           const SizedBox(height: 6), // Reduced space between fields
@@ -145,11 +166,14 @@ class _HomePageState extends State<HomePage> {
             leading: CircleAvatar(
               backgroundColor: Colors.teal[800],
               radius: 14, // Reduced size
-              child: const Text('🏳️', style: TextStyle(color: Colors.white, fontSize: 10)), // Reduced size
+              child: const Text('🏳️',
+                  style: TextStyle(
+                      color: Colors.white, fontSize: 10)), // Reduced size
             ),
             title: toLocation ?? 'ไปที่',
             onTap: () => _pickLocation((result) {
-              setState(() => toLocation = 'Lat: ${result.latitude.toStringAsFixed(5)}, Lng: ${result.longitude.toStringAsFixed(5)}');
+              setState(() => toLocation =
+                  'Lat: ${result.latitude.toStringAsFixed(5)}, Lng: ${result.longitude.toStringAsFixed(5)}');
             }),
           ),
         ],
@@ -157,19 +181,26 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildLocationTile({required Widget leading, required String title, required VoidCallback onTap}) {
+  Widget _buildLocationTile(
+      {required Widget leading,
+      required String title,
+      required VoidCallback onTap}) {
     return Container(
       decoration: BoxDecoration(
         color: const Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(8),
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0), // Reduced vertical padding
+        contentPadding: const EdgeInsets.symmetric(
+            horizontal: 12, vertical: 0), // Reduced vertical padding
         minVerticalPadding: 0, // Set minimum vertical padding to 0
-        visualDensity: VisualDensity(horizontal: 0, vertical: -4), // Make the tile more compact
+        visualDensity: VisualDensity(
+            horizontal: 0, vertical: -4), // Make the tile more compact
         leading: leading,
-        title: Text(title, style: const TextStyle(fontSize: 14)), // Reduced font size
-        trailing: const Icon(Icons.chevron_right, size: 18), // Reduced icon size
+        title: Text(title,
+            style: const TextStyle(fontSize: 14)), // Reduced font size
+        trailing:
+            const Icon(Icons.chevron_right, size: 18), // Reduced icon size
         onTap: onTap,
       ),
     );
@@ -190,7 +221,9 @@ class _HomePageState extends State<HomePage> {
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5, offset: Offset(0, -2))],
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 5, offset: Offset(0, -2))
+        ],
       ),
       padding: const EdgeInsets.all(12.0), // Reduced padding
       child: Column(
@@ -202,11 +235,16 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0), // Reduced vertical padding
-              visualDensity: VisualDensity(horizontal: 0, vertical: -4), // Make the tile more compact
+              contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 12, vertical: 0), // Reduced vertical padding
+              visualDensity: VisualDensity(
+                  horizontal: 0, vertical: -4), // Make the tile more compact
               minVerticalPadding: 0, // Set minimum vertical padding to 0
-              leading: const Icon(Icons.info_outline, color: Colors.teal, size: 20), // Reduced icon size
-              title: const Text('รายละเอียด', style: TextStyle(fontSize: 13, color: Colors.teal)), // Reduced font size
+              leading: const Icon(Icons.info_outline,
+                  color: Colors.teal, size: 20), // Reduced icon size
+              title: const Text('รายละเอียด',
+                  style: TextStyle(
+                      fontSize: 13, color: Colors.teal)), // Reduced font size
               onTap: () {},
             ),
           ),
@@ -242,11 +280,15 @@ class _HomePageState extends State<HomePage> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0), // Reduced vertical padding
-        visualDensity: VisualDensity(horizontal: 0, vertical: -4), // Make the tile more compact
+        contentPadding: const EdgeInsets.symmetric(
+            horizontal: 8, vertical: 0), // Reduced vertical padding
+        visualDensity: VisualDensity(
+            horizontal: 0, vertical: -4), // Make the tile more compact
         minVerticalPadding: 0, // Set minimum vertical padding to 0
         leading: Icon(icon, color: Colors.teal, size: 18), // Reduced icon size
-        title: Text(text, style: const TextStyle(fontSize: 13, color: Colors.teal)), // Reduced font size
+        title: Text(text,
+            style: const TextStyle(
+                fontSize: 13, color: Colors.teal)), // Reduced font size
         onTap: () {},
       ),
     );
@@ -254,37 +296,44 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildServiceChoices() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildServiceOption(
-          image: 'assets/cars/car.png',
-          title: 'รถยนต์',
-          price: 'เริ่มต้น ₭15000',
-          isSelected: selectedService == 'car',
-          onTap: () {
-            setState(() => selectedService = 'car');
-            _showServiceOptionsDialog('car');
-          },
+        Expanded(
+          child: _buildServiceOption(
+            image: 'assets/cars/car.png',
+            title: 'รถยนต์',
+            price: 'เริ่มต้น ₭15000',
+            isSelected: selectedService == 'car',
+            onTap: () {
+              setState(() => selectedService = 'car');
+              _showServiceOptionsDialog('car');
+            },
+          ),
         ),
-        _buildServiceOption(
-          image: 'assets/cars/images.png',
-          title: 'มอเตอร์ไซค์',
-          price: 'เริ่มต้น ₭10000',
-          isSelected: selectedService == 'motorcycle',
-          onTap: () {
-            setState(() => selectedService = 'motorcycle');
-            _showServiceOptionsDialog('motorcycle');
-          },
+        const SizedBox(width: 8),
+        Expanded(
+          child: _buildServiceOption(
+            image: 'assets/cars/images.png',
+            title: 'มอเตอร์ไซค์',
+            price: 'เริ่มต้น ₭10000',
+            isSelected: selectedService == 'motorcycle',
+            onTap: () {
+              setState(() => selectedService = 'motorcycle');
+              _showServiceOptionsDialog('motorcycle');
+            },
+          ),
         ),
-        _buildServiceOption(
-          image: 'assets/cars/download.png',
-          title: 'การจัดส่ง',
-          price: 'เริ่มต้น ₭10000',
-          isSelected: selectedService == 'delivery',
-          onTap: () {
-            setState(() => selectedService = 'delivery');
-            _showServiceOptionsDialog('delivery');
-          },
+        const SizedBox(width: 8),
+        Expanded(
+          child: _buildServiceOption(
+            image: 'assets/cars/download.png',
+            title: 'การจัดส่ง',
+            price: 'เริ่มต้น ₭10000',
+            isSelected: selectedService == 'delivery',
+            onTap: () {
+              setState(() => selectedService = 'delivery');
+              _showServiceOptionsDialog('delivery');
+            },
+          ),
         ),
       ],
     );
@@ -300,7 +349,8 @@ class _HomePageState extends State<HomePage> {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: MediaQuery.of(context).size.width / 3.8,
+        // Remove fixed width to allow expansion
+        // width: MediaQuery.of(context).size.width / 3.8, <-- Remove this line
         decoration: BoxDecoration(
           border: Border.all(
             color: isSelected ? Colors.teal : const Color(0xFFEEEEEE),
@@ -308,19 +358,20 @@ class _HomePageState extends State<HomePage> {
           ),
           borderRadius: BorderRadius.circular(8),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6), // Reduced vertical padding
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
         child: Column(
           children: [
-            Image.asset(image, height: 36, fit: BoxFit.contain), // Reduced image size
-            const SizedBox(height: 4), // Reduced spacing
+            Image.asset(image, height: 36, fit: BoxFit.contain),
+            const SizedBox(height: 4),
             Text(
               title,
               style: TextStyle(
-                fontSize: 12, // Reduced font size
+                fontSize: 12,
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
               ),
             ),
-            Text(price, style: TextStyle(fontSize: 10, color: Colors.grey[600])), // Reduced font size
+            Text(price,
+                style: TextStyle(fontSize: 10, color: Colors.grey[600])),
           ],
         ),
       ),
@@ -334,12 +385,14 @@ class _HomePageState extends State<HomePage> {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.teal,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
         ),
         onPressed: () {},
         child: const Text(
           'เรียกรถ',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(
+              fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
     );
@@ -368,7 +421,8 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Text(
                     serviceTitles[serviceType] ?? 'เลือกบริการ',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 12),
                   Flexible(
@@ -385,26 +439,36 @@ class _HomePageState extends State<HomePage> {
                           margin: const EdgeInsets.only(bottom: 8),
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: isSelected ? Colors.teal : const Color(0xFFEEEEEE),
+                              color: isSelected
+                                  ? Colors.teal
+                                  : const Color(0xFFEEEEEE),
                               width: isSelected ? 2 : 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: ListTile(
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                            visualDensity: VisualDensity(horizontal: 0, vertical: -2), // Make the tile more compact
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 4),
+                            visualDensity: VisualDensity(
+                                horizontal: 0,
+                                vertical: -2), // Make the tile more compact
                             title: Text(
                               option['name'] ?? '',
                               style: TextStyle(
                                 fontSize: 14,
-                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
                               ),
                             ),
                             trailing: Text(
                               option['price'] ?? '',
                               style: TextStyle(
-                                color: isSelected ? Colors.teal : Colors.grey[600],
-                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                color:
+                                    isSelected ? Colors.teal : Colors.grey[600],
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
                               ),
                             ),
                             onTap: () {
@@ -414,11 +478,14 @@ class _HomePageState extends State<HomePage> {
 
                               setState(() {
                                 if (serviceType == 'car') {
-                                  selectedCarOption = option['id'] ?? 'standard';
+                                  selectedCarOption =
+                                      option['id'] ?? 'standard';
                                 } else if (serviceType == 'motorcycle') {
-                                  selectedMotorcycleOption = option['id'] ?? 'standard';
+                                  selectedMotorcycleOption =
+                                      option['id'] ?? 'standard';
                                 } else {
-                                  selectedDeliveryOption = option['id'] ?? 'small';
+                                  selectedDeliveryOption =
+                                      option['id'] ?? 'small';
                                 }
                               });
                             },
@@ -434,12 +501,16 @@ class _HomePageState extends State<HomePage> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.teal,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(22)),
                       ),
                       onPressed: () => Navigator.pop(context),
                       child: const Text(
                         'ยืนยัน',
-                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                     ),
                   ),

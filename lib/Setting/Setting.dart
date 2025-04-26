@@ -1,5 +1,7 @@
 // Setting/Setting.dart
 import 'package:flutter/material.dart';
+// Import the ProfilePage from another file
+import 'package:myflutter/Profile/Profile.dart'; // ต้องมีไฟล์นี้อยู่ในโปรเจค
 
 class Setting extends StatelessWidget {
   const Setting({Key? key}) : super(key: key);
@@ -14,7 +16,7 @@ class Setting extends StatelessWidget {
       ),
       home: const HomePage(),
       routes: {
-       
+        // เราไม่จำเป็นต้องกำหนด route สำหรับ ProfilePage ถ้าเราจะใช้ Navigator.push โดยตรง
         '/report': (context) => const DummyPage(title: 'ລີວິວການບໍລິການ'),
         '/support': (context) => const DummyPage(title: 'ຝ່າຍສະໜັບສະໜຸນ'),
         '/payment': (context) => const DummyPage(title: 'ຮູບແບບການຊຳລະເງິນ'),
@@ -40,8 +42,11 @@ class HomePage extends StatelessWidget {
           child: SafeArea(
             child: InkWell(
               onTap: () {
-                // You can add navigation or action here if needed
-                Navigator.pushNamed(context, '/about');
+                // แทนที่จะใช้ pushNamed เราใช้ push โดยตรงเพื่อนำทางไปยังหน้า ProfilePage
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProfilePage()),
+                );
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -229,3 +234,26 @@ class DummyPage extends StatelessWidget {
     );
   }
 }
+
+// ต้องมีไฟล์ ProfilePage.dart แยกต่างหากในโปรเจค
+// ตัวอย่างเนื้อหาของไฟล์ ProfilePage.dart:
+/*
+import 'package:flutter/material.dart';
+
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('โปรไฟล์'),
+        backgroundColor: Colors.teal,
+      ),
+      body: Center(
+        // เนื้อหาหน้าโปรไฟล์ของคุณ
+      ),
+    );
+  }
+}
+*/
