@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'LocationPickerPage.dart';
+import 'package:myflutter/Menu/DetailPage.dart';
 
 void main() => runApp(const Dokkeo());
 
@@ -216,6 +217,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+// แก้ไขส่วนของ _buildBottomActions() เพื่อเพิ่มการนำทางเมื่อกดปุ่มรายละเอียด
   Widget _buildBottomActions() {
     return Container(
       decoration: const BoxDecoration(
@@ -225,7 +227,7 @@ class _HomePageState extends State<HomePage> {
           BoxShadow(color: Colors.black12, blurRadius: 5, offset: Offset(0, -2))
         ],
       ),
-      padding: const EdgeInsets.all(12.0), // Reduced padding
+      padding: const EdgeInsets.all(12.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -235,24 +237,28 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 12, vertical: 0), // Reduced vertical padding
-              visualDensity: VisualDensity(
-                  horizontal: 0, vertical: -4), // Make the tile more compact
-              minVerticalPadding: 0, // Set minimum vertical padding to 0
-              leading: const Icon(Icons.info_outline,
-                  color: Colors.teal, size: 20), // Reduced icon size
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+              visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+              minVerticalPadding: 0,
+              leading:
+                  const Icon(Icons.info_outline, color: Colors.teal, size: 20),
               title: const Text('รายละเอียด',
-                  style: TextStyle(
-                      fontSize: 13, color: Colors.teal)), // Reduced font size
-              onTap: () {},
+                  style: TextStyle(fontSize: 13, color: Colors.teal)),
+              onTap: () {
+                // นำทางไปยังหน้ารายละเอียด
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DetailPage()),
+                );
+              },
             ),
           ),
-          const SizedBox(height: 6), // Reduced spacing
+          const SizedBox(height: 6),
           _buildActionButtons(),
-          const SizedBox(height: 8), // Reduced spacing
+          const SizedBox(height: 8),
           _buildServiceChoices(),
-          const SizedBox(height: 10), // Reduced spacing
+          const SizedBox(height: 10),
           _buildOrderButton(),
         ],
       ),
