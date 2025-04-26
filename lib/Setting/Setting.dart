@@ -14,9 +14,9 @@ class Setting extends StatelessWidget {
       ),
       home: const HomePage(),
       routes: {
-        '/settings': (context) => const DummyPage(title: 'ຕັ້ງຄ່າພື້ນຖານ'),
+       
+        '/report': (context) => const DummyPage(title: 'ລີວິວການບໍລິການ'),
         '/support': (context) => const DummyPage(title: 'ຝ່າຍສະໜັບສະໜຸນ'),
-        '/notifications': (context) => const DummyPage(title: 'ການແຈ້ງເຕືອນ'),
         '/payment': (context) => const DummyPage(title: 'ຮູບແບບການຊຳລະເງິນ'),
         '/promo': (context) => const DummyPage(title: 'ໂຄດໂປຣໂມຊັ່ນ'),
         '/about': (context) => const DummyPage(title: 'ຂໍ້ມູນແອບ'),
@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                           child: const Text(
                             "Dokkeo",
                             style: TextStyle(
-                              color: Colors.black,
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
                             ),
@@ -141,7 +141,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
 
-                _buildMenuItem(context, Icons.settings, "ຕັ້ງຄ່າພື້ນຖານ", '/settings'),
+                _buildMenuItem(context, Icons.message_outlined, "ລີວິວການບໍລິການ", '/report'),
                 _buildMenuItem(context, Icons.report_problem, "ຝ່າຍສະໜັບສະໜຸນ", '/support'),
                 _buildMenuItem(context, Icons.notifications, "ການແຈ້ງເຕືອນ", '/notifications'),
                 _buildMenuItem(context, Icons.payment, "ຮູບແບບການຊຳລະເງິນ", '/payment'),

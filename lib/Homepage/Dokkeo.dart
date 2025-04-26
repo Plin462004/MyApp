@@ -88,7 +88,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       actions: [
-        const SizedBox(width: 8),
         Stack(
           alignment: Alignment.center,
           children: [
@@ -110,33 +109,43 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        const SizedBox(width: 8),
+        IconButton(
+          icon: Icon(Icons.settings, color: Colors.black87, size: 24),
+          onPressed: () {
+            // Navigate to settings page
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SettingsPage()),
+            );
+          },
+        ),
+        const SizedBox(width: 4),
       ],
     );
   }
 
   Widget _buildLocationFields() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Reduced vertical padding
       child: Column(
         children: [
           _buildLocationTile(
             leading: const CircleAvatar(
               backgroundColor: Colors.red,
-              radius: 16,
-              child: Icon(Icons.location_on, color: Colors.white, size: 18),
+              radius: 14, // Reduced size
+              child: Icon(Icons.location_on, color: Colors.white, size: 16), // Reduced size
             ),
             title: fromLocation ?? 'เดินทางจาก',
             onTap: () => _pickLocation((result) {
               setState(() => fromLocation = 'Lat: ${result.latitude.toStringAsFixed(5)}, Lng: ${result.longitude.toStringAsFixed(5)}');
             }),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6), // Reduced space between fields
           _buildLocationTile(
             leading: CircleAvatar(
               backgroundColor: Colors.teal[800],
-              radius: 16,
-              child: const Text('🏳️', style: TextStyle(color: Colors.white, fontSize: 12)),
+              radius: 14, // Reduced size
+              child: const Text('🏳️', style: TextStyle(color: Colors.white, fontSize: 10)), // Reduced size
             ),
             title: toLocation ?? 'ไปที่',
             onTap: () => _pickLocation((result) {
@@ -155,10 +164,12 @@ class _HomePageState extends State<HomePage> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0), // Reduced vertical padding
+        minVerticalPadding: 0, // Set minimum vertical padding to 0
+        visualDensity: VisualDensity(horizontal: 0, vertical: -4), // Make the tile more compact
         leading: leading,
-        title: Text(title, style: const TextStyle(fontSize: 15)),
-        trailing: const Icon(Icons.chevron_right, size: 20),
+        title: Text(title, style: const TextStyle(fontSize: 14)), // Reduced font size
+        trailing: const Icon(Icons.chevron_right, size: 18), // Reduced icon size
         onTap: onTap,
       ),
     );
@@ -181,7 +192,7 @@ class _HomePageState extends State<HomePage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
         boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5, offset: Offset(0, -2))],
       ),
-      padding: const EdgeInsets.all(14.0),
+      padding: const EdgeInsets.all(12.0), // Reduced padding
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -191,17 +202,19 @@ class _HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              leading: const Icon(Icons.info_outline, color: Colors.teal, size: 22),
-              title: const Text('รายละเอียด', style: TextStyle(fontSize: 14, color: Colors.teal)),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0), // Reduced vertical padding
+              visualDensity: VisualDensity(horizontal: 0, vertical: -4), // Make the tile more compact
+              minVerticalPadding: 0, // Set minimum vertical padding to 0
+              leading: const Icon(Icons.info_outline, color: Colors.teal, size: 20), // Reduced icon size
+              title: const Text('รายละเอียด', style: TextStyle(fontSize: 13, color: Colors.teal)), // Reduced font size
               onTap: () {},
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6), // Reduced spacing
           _buildActionButtons(),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8), // Reduced spacing
           _buildServiceChoices(),
-          const SizedBox(height: 12),
+          const SizedBox(height: 10), // Reduced spacing
           _buildOrderButton(),
         ],
       ),
@@ -214,7 +227,7 @@ class _HomePageState extends State<HomePage> {
         Expanded(
           child: _buildSmallButton(Icons.money, 'เงินสด'),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 6), // Reduced spacing
         Expanded(
           child: _buildSmallButton(Icons.access_time, 'ตอนนี้'),
         ),
@@ -229,9 +242,11 @@ class _HomePageState extends State<HomePage> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        leading: Icon(icon, color: Colors.teal, size: 20),
-        title: Text(text, style: const TextStyle(fontSize: 14, color: Colors.teal)),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0), // Reduced vertical padding
+        visualDensity: VisualDensity(horizontal: 0, vertical: -4), // Make the tile more compact
+        minVerticalPadding: 0, // Set minimum vertical padding to 0
+        leading: Icon(icon, color: Colors.teal, size: 18), // Reduced icon size
+        title: Text(text, style: const TextStyle(fontSize: 13, color: Colors.teal)), // Reduced font size
         onTap: () {},
       ),
     );
@@ -293,19 +308,19 @@ class _HomePageState extends State<HomePage> {
           ),
           borderRadius: BorderRadius.circular(8),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6), // Reduced vertical padding
         child: Column(
           children: [
-            Image.asset(image, height: 40, fit: BoxFit.contain),
-            const SizedBox(height: 6),
+            Image.asset(image, height: 36, fit: BoxFit.contain), // Reduced image size
+            const SizedBox(height: 4), // Reduced spacing
             Text(
               title,
               style: TextStyle(
-                fontSize: 13,
+                fontSize: 12, // Reduced font size
                 fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
               ),
             ),
-            Text(price, style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+            Text(price, style: TextStyle(fontSize: 10, color: Colors.grey[600])), // Reduced font size
           ],
         ),
       ),
@@ -315,16 +330,16 @@ class _HomePageState extends State<HomePage> {
   Widget _buildOrderButton() {
     return SizedBox(
       width: double.infinity,
-      height: 48,
+      height: 44, // Reduced height
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.teal,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
         ),
         onPressed: () {},
         child: const Text(
           'เรียกรถ',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
     );
@@ -376,7 +391,8 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: ListTile(
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                            visualDensity: VisualDensity(horizontal: 0, vertical: -2), // Make the tile more compact
                             title: Text(
                               option['name'] ?? '',
                               style: TextStyle(
@@ -433,6 +449,61 @@ class _HomePageState extends State<HomePage> {
           },
         );
       },
+    );
+  }
+}
+
+// Placeholder for Settings Page
+class SettingsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("ตั้งค่า", style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 1,
+      ),
+      body: ListView(
+        children: [
+          ListTile(
+            leading: Icon(Icons.person, color: Colors.teal),
+            title: Text("โปรไฟล์"),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.history, color: Colors.teal),
+            title: Text("ประวัติการเดินทาง"),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.payment, color: Colors.teal),
+            title: Text("การชำระเงิน"),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.language, color: Colors.teal),
+            title: Text("ภาษา"),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.help_outline, color: Colors.teal),
+            title: Text("ความช่วยเหลือ"),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.info_outline, color: Colors.teal),
+            title: Text("เกี่ยวกับแอป"),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () {},
+          ),
+        ],
+      ),
     );
   }
 }
