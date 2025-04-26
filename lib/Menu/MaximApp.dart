@@ -1,5 +1,7 @@
 // Menu/MaximApp.dart
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'LocationPickerPage.dart'; // สมมติว่าคุณสร้างตามที่บอกไป
 
 void main() {
   runApp(const MaximApp());
@@ -30,15 +32,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // ตัวแปรเก็บประเภทบริการที่เลือก
   String selectedService = 'car';
-  
-  // ตัวแปรเก็บตัวเลือกย่อยของแต่ละบริการ
   String selectedCarOption = 'standard';
   String selectedMotorcycleOption = 'standard';
   String selectedDeliveryOption = 'small';
-  
-  // ข้อมูลตัวเลือกย่อยสำหรับแต่ละบริการ
+
+  String? fromLocation;
+  String? toLocation;
+
   final Map<String, List<Map<String, String>>> serviceOptions = {
     'car': [
       {'id': 'standard', 'name': 'รถยนต์มาตรฐาน', 'price': '₭15000'},
@@ -56,7 +57,6 @@ class _HomePageState extends State<HomePage> {
     ],
   };
 
-  // ชื่อหัวข้อสำหรับป็อปอัพของแต่ละบริการ
   final Map<String, String> serviceTitles = {
     'car': 'ประเภทรถยนต์',
     'motorcycle': 'ประเภทมอเตอร์ไซค์',
@@ -69,60 +69,47 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            // Header with logo and city
+            // Header
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Maxim logo
                   Row(
-                    children: [
-                      const Text(
-                        "m",
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const Text(
-                        "a",
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red,
-                        ),
-                      ),
-                      const Text(
-                        "xim",
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
+                    children: const [
+                      Text("m",
+                          style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black)),
+                      Text("a",
+                          style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red)),
+                      Text("xim",
+                          style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black)),
                     ],
                   ),
-                  // City name
-                  const Text(
-                    "Vientiane",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.blueGrey,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                  const Text("Vientiane",
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.blueGrey,
+                          fontWeight: FontWeight.w500)),
                 ],
               ),
             ),
-            
-            // Location fields
+
+            // Location Fields
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 children: [
-                  // From location button
+                  // From location
                   Container(
                     decoration: BoxDecoration(
                       color: const Color(0xFFF5F5F5),
@@ -134,16 +121,29 @@ class _HomePageState extends State<HomePage> {
                         backgroundColor: Colors.red,
                         child: Icon(Icons.location_on, color: Colors.white),
                       ),
-                      title: const Text(
-                        'เดินทางจาก',
-                        style: TextStyle(fontSize: 16),
+                      title: Text(
+                        fromLocation ?? 'เดินทางจาก',
+                        style: const TextStyle(fontSize: 16),
                       ),
                       trailing: const Icon(Icons.chevron_right),
-                      onTap: () {},
+                      onTap: () async {
+                        final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LocationPickerPage(),
+                          ),
+                        );
+                        if (result != null && result is LatLng) {
+                          setState(() {
+                            fromLocation =
+                                'Lat: ${result.latitude.toStringAsFixed(5)}, Lng: ${result.longitude.toStringAsFixed(5)}';
+                          });
+                        }
+                      },
                     ),
                   ),
-                  
-                  // To location button
+
+                  // To location
                   Container(
                     decoration: BoxDecoration(
                       color: const Color(0xFFF5F5F5),
@@ -152,186 +152,114 @@ class _HomePageState extends State<HomePage> {
                     child: ListTile(
                       leading: CircleAvatar(
                         backgroundColor: Colors.teal[800],
-                        child: const Text('ไป', style: TextStyle(color: Colors.white)),
+                        child: const Text('ไป',
+                            style: TextStyle(color: Colors.white)),
                       ),
-                      title: const Text(
-                        'ไปที่',
-                        style: TextStyle(fontSize: 16),
+                      title: Text(
+                        toLocation ?? 'ไปที่',
+                        style: const TextStyle(fontSize: 16),
                       ),
                       trailing: const Icon(Icons.chevron_right),
-                      onTap: () {},
+                      onTap: () async {
+                        final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LocationPickerPage(),
+                          ),
+                        );
+                        if (result != null && result is LatLng) {
+                          setState(() {
+                            toLocation =
+                                'Lat: ${result.latitude.toStringAsFixed(5)}, Lng: ${result.longitude.toStringAsFixed(5)}';
+                          });
+                        }
+                      },
                     ),
                   ),
                 ],
               ),
             ),
-            
-            // Divider line
+
             const Padding(
               padding: EdgeInsets.only(top: 10),
               child: Divider(height: 1, thickness: 1, color: Color(0xFFEEEEEE)),
             ),
-            
-            // Expanded empty space (map would go here in a real app)
-            const Expanded(
-              child: SizedBox(),
-            ),
-            
-            // Bottom action area
+
+            const Expanded(child: SizedBox()),
+
+            _buildBottomActions(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBottomActions() {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20)), // เพิ่มขอบโค้งด้านบน
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 5,
+            offset: Offset(0, -2),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            // รายละเอียด
             Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 5,
-                    offset: Offset(0, -2),
-                  ),
-                ],
+              decoration: BoxDecoration(
+                color: const Color(0xFFF5F5F5),
+                borderRadius: BorderRadius.circular(8),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    // Details button
-                    Container(
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFF5F5F5),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: ListTile(
-                        leading: const Icon(Icons.info_outline, color: Colors.blueGrey),
-                        title: const Text(
-                          'รายละเอียด',
-                          style: TextStyle(fontSize: 16, color: Colors.blueGrey),
-                        ),
-                        onTap: () {},
-                      ),
-                    ),
-                    
-                    const SizedBox(height: 10),
-                    
-                    // Payment and time options
-                    Row(
-                      children: [
-                        // Payment method
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF5F5F5),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: ListTile(
-                              leading: const Icon(Icons.money, color: Colors.blueGrey),
-                              title: const Text(
-                                'เงินสด',
-                                style: TextStyle(fontSize: 16, color: Colors.blueGrey),
-                              ),
-                              onTap: () {},
-                            ),
-                          ),
-                        ),
-                        
-                        const SizedBox(width: 10),
-                        
-                        // Time option
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF5F5F5),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: ListTile(
-                              leading: const Icon(Icons.access_time, color: Colors.blueGrey),
-                              title: const Text(
-                                'ตอนนี้',
-                                style: TextStyle(fontSize: 16, color: Colors.blueGrey),
-                              ),
-                              onTap: () {},
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    
-                    const SizedBox(height: 16),
-                    
-                    // Service options with prices
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        // Car option
-                        _buildServiceOption(
-                          context,
-                          image: 'assets/cars/car.png',
-                          title: 'รถยนต์',
-                          price: 'เริ่มต้น ₭15000',
-                          isSelected: selectedService == 'car',
-                          onTap: () {
-                            setState(() {
-                              selectedService = 'car';
-                            });
-                            _showServiceOptionsDialog('car');
-                          },
-                        ),
-                        
-                        // Motorcycle option
-                        _buildServiceOption(
-                          context,
-                          image: 'assets/cars/images.png',
-                          title: 'มอเตอร์ไซค์',
-                          price: 'เริ่มต้น ₭10000',
-                          isSelected: selectedService == 'motorcycle',
-                          onTap: () {
-                            setState(() {
-                              selectedService = 'motorcycle';
-                            });
-                            _showServiceOptionsDialog('motorcycle');
-                          },
-                        ),
-                        
-                        // Delivery option
-                        _buildServiceOption(
-                          context,
-                          image: 'assets/cars/download.png',
-                          title: 'การจัดส่ง',
-                          price: 'เริ่มต้น ₭10000',
-                          isSelected: selectedService == 'delivery',
-                          onTap: () {
-                            setState(() {
-                              selectedService = 'delivery';
-                            });
-                            _showServiceOptionsDialog('delivery');
-                          },
-                        ),
-                      ],
-                    ),
-                    
-                    const SizedBox(height: 16),
-                    
-                    // Call taxi button
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFFFCC00),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: const Text(
-                          'เรียกรถ',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+              child: ListTile(
+                leading: const Icon(Icons.info_outline, color: Colors.blueGrey),
+                title: const Text(
+                  'รายละเอียด',
+                  style: TextStyle(fontSize: 14, color: Colors.blueGrey),
+                ),
+                onTap: () {},
+              ),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildSmallButton(Icons.money, 'เงินสด', () {}),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: _buildSmallButton(Icons.access_time, 'ตอนนี้', () {}),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            _buildServiceChoices(),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFFCC00),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
+                onPressed: () {},
+                child: const Text(
+                  'เรียกรถ',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
               ),
             ),
@@ -341,156 +269,66 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // แสดงป็อปอัพเลือกตัวเลือกย่อยของบริการ
-  void _showServiceOptionsDialog(String serviceType) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  Widget _buildSmallButton(IconData icon, String text, VoidCallback onTap) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.circular(8),
       ),
-      builder: (context) {
-        // ดึงค่าตัวเลือกปัจจุบันของบริการนี้
-        String currentSelected = '';
-        switch (serviceType) {
-          case 'car':
-            currentSelected = selectedCarOption;
-            break;
-          case 'motorcycle':
-            currentSelected = selectedMotorcycleOption;
-            break;
-          case 'delivery':
-            currentSelected = selectedDeliveryOption;
-            break;
-        }
-        
-        return Container(
-          padding: const EdgeInsets.all(20),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    serviceTitles[serviceType]!,
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              const Divider(),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: serviceOptions[serviceType]!.length,
-                itemBuilder: (context, index) {
-                  final option = serviceOptions[serviceType]![index];
-                  final bool isSelected = option['id'] == currentSelected;
-                  
-                  return InkWell(
-                    onTap: () {
-                      // อัพเดทตัวเลือกที่เลือก
-                      setState(() {
-                        switch (serviceType) {
-                          case 'car':
-                            selectedCarOption = option['id']!;
-                            break;
-                          case 'motorcycle':
-                            selectedMotorcycleOption = option['id']!;
-                            break;
-                          case 'delivery':
-                            selectedDeliveryOption = option['id']!;
-                            break;
-                        }
-                      });
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: isSelected ? const Color(0xFFFFF8E1) : Colors.white,
-                        border: Border(
-                          left: BorderSide(
-                            color: isSelected ? const Color(0xFFFFCC00) : Colors.transparent,
-                            width: 5,
-                          ),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              option['name']!,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                              ),
-                            ),
-                            Text(
-                              option['price']!,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                                color: Colors.grey[700],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFFCC00),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'ยืนยัน',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+      child: ListTile(
+        leading: Icon(icon, color: Colors.blueGrey),
+        title: Text(text,
+            style: const TextStyle(fontSize: 16, color: Colors.blueGrey)),
+        onTap: onTap,
+      ),
     );
   }
 
-  // สร้าง Widget สำหรับตัวเลือกหลักด้านล่าง (รถยนต์, มอเตอร์ไซค์, การจัดส่ง)
-  Widget _buildServiceOption(
-    BuildContext context, {
+  Widget _buildServiceChoices() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildServiceOption(
+          image: 'assets/cars/car.png',
+          title: 'รถยนต์',
+          price: 'เริ่มต้น ₭15000',
+          isSelected: selectedService == 'car',
+          onTap: () {
+            setState(() {
+              selectedService = 'car';
+            });
+            _showServiceOptionsDialog('car');
+          },
+        ),
+        _buildServiceOption(
+          image: 'assets/cars/images.png',
+          title: 'มอเตอร์ไซค์',
+          price: 'เริ่มต้น ₭10000',
+          isSelected: selectedService == 'motorcycle',
+          onTap: () {
+            setState(() {
+              selectedService = 'motorcycle';
+            });
+            _showServiceOptionsDialog('motorcycle');
+          },
+        ),
+        _buildServiceOption(
+          image: 'assets/cars/download.png',
+          title: 'การจัดส่ง',
+          price: 'เริ่มต้น ₭10000',
+          isSelected: selectedService == 'delivery',
+          onTap: () {
+            setState(() {
+              selectedService = 'delivery';
+            });
+            _showServiceOptionsDialog('delivery');
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildServiceOption({
     required String image,
     required String title,
     required String price,
@@ -503,20 +341,16 @@ class _HomePageState extends State<HomePage> {
         width: MediaQuery.of(context).size.width / 3.5,
         decoration: BoxDecoration(
           border: Border.all(
-            color: isSelected ? const Color(0xFFFFCC00) : const Color(0xFFEEEEEE),
+            color:
+                isSelected ? const Color(0xFFFFCC00) : const Color(0xFFEEEEEE),
             width: isSelected ? 2 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
         ),
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              image,
-              height: 50,
-              fit: BoxFit.contain,
-            ),
+            Image.asset(image, height: 50, fit: BoxFit.contain),
             const SizedBox(height: 8),
             Text(
               title,
@@ -526,16 +360,153 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(height: 2),
-            Text(
-              price,
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.grey[600],
-              ),
-            ),
+            Text(price,
+                style: TextStyle(fontSize: 12, color: Colors.grey[600])),
           ],
         ),
       ),
+    );
+  }
+
+  void _showServiceOptionsDialog(String serviceType) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            String selectedOption = serviceType == 'car'
+                ? selectedCarOption
+                : serviceType == 'motorcycle'
+                    ? selectedMotorcycleOption
+                    : selectedDeliveryOption;
+
+            return Container(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: Text(
+                      serviceTitles[serviceType] ?? 'เลือกบริการ',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: serviceOptions[serviceType]?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        final option = serviceOptions[serviceType]?[index];
+                        if (option == null) return const SizedBox.shrink();
+
+                        bool isSelected = option['id'] == selectedOption;
+
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: isSelected
+                                  ? const Color(0xFFFFCC00)
+                                  : const Color(0xFFEEEEEE),
+                              width: isSelected ? 2 : 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
+                            title: Text(
+                              option['name'] ?? '',
+                              style: TextStyle(
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                            trailing: Text(
+                              option['price'] ?? '',
+                              style: TextStyle(
+                                color: isSelected
+                                    ? const Color(0xFFFFCC00)
+                                    : Colors.grey[600],
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                            onTap: () {
+                              setModalState(() {
+                                if (serviceType == 'car') {
+                                  selectedCarOption =
+                                      option['id'] ?? 'standard';
+                                } else if (serviceType == 'motorcycle') {
+                                  selectedMotorcycleOption =
+                                      option['id'] ?? 'standard';
+                                } else {
+                                  selectedDeliveryOption =
+                                      option['id'] ?? 'small';
+                                }
+                                selectedOption = option['id'] ?? '';
+                              });
+
+                              setState(() {
+                                if (serviceType == 'car') {
+                                  selectedCarOption =
+                                      option['id'] ?? 'standard';
+                                } else if (serviceType == 'motorcycle') {
+                                  selectedMotorcycleOption =
+                                      option['id'] ?? 'standard';
+                                } else {
+                                  selectedDeliveryOption =
+                                      option['id'] ?? 'small';
+                                }
+                              });
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFFFCC00),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        'ยืนยัน',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

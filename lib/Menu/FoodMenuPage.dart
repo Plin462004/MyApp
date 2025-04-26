@@ -1,9 +1,10 @@
 // Menu/FoodMenuPage.dart
 import 'package:flutter/material.dart';
+import 'package:myflutter/Menu/map.dart';
 
 import '../Auth/GetStart.dart';
 import '../Auth/LoginCard.dart';
-import '../Profile/MyAccount.dart';
+import '../Menu/map.dart';
 
 class FoodMenuPage extends StatefulWidget {
   const FoodMenuPage({super.key});
@@ -47,7 +48,7 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
     final screenWidth = MediaQuery.of(context).size.width;
     final isTablet = screenWidth > 600;
     final isPad = screenWidth > 768;
-    
+
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: _buildDrawer(),
@@ -150,45 +151,46 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
             ),
             // Summary Cards - Responsive Grid
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: Wrap(
                 spacing: 12,
                 runSpacing: 12,
                 children: [
                   _buildSummaryCard(
-                    "assets/icons/mental-health.png", 
+                    "assets/icons/mental-health.png",
                     "Tasks",
-                    "0 Tasks", 
+                    "0 Tasks",
                     Colors.blue,
-                    width: isTablet 
-                        ? (screenWidth - 64) / 4 
+                    width: isTablet
+                        ? (screenWidth - 64) / 4
                         : (screenWidth - 48) / 2,
                   ),
                   _buildSummaryCard(
-                    "assets/icons/service.png", 
+                    "assets/icons/service.png",
                     "Habits",
-                    "0 Habits", 
+                    "0 Habits",
                     Colors.pink,
-                    width: isTablet 
-                        ? (screenWidth - 64) / 4 
+                    width: isTablet
+                        ? (screenWidth - 64) / 4
                         : (screenWidth - 48) / 2,
                   ),
                   _buildSummaryCard(
-                    "assets/icons/learning.png", 
+                    "assets/icons/learning.png",
                     "Finances",
-                    "0 Expenses", 
+                    "0 Expenses",
                     Colors.teal,
-                    width: isTablet 
-                        ? (screenWidth - 64) / 4 
+                    width: isTablet
+                        ? (screenWidth - 64) / 4
                         : (screenWidth - 48) / 2,
                   ),
                   _buildSummaryCard(
-                    "assets/icons/greetings.png", 
+                    "assets/icons/greetings.png",
                     "Wellness",
-                    "1 Entries", 
+                    "1 Entries",
                     Colors.black87,
-                    width: isTablet 
-                        ? (screenWidth - 64) / 4 
+                    width: isTablet
+                        ? (screenWidth - 64) / 4
                         : (screenWidth - 48) / 2,
                   ),
                 ],
@@ -218,14 +220,10 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "ບໍລິການຂອງພວກເຮົາ",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)
-                  ),
-                  Text(
-                    "เพิ่มเติม", 
-                    style: TextStyle(color: Colors.teal[700])
-                  )
+                  const Text("ບໍລິການຂອງພວກເຮົາ",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text("เพิ่มเติม", style: TextStyle(color: Colors.teal[700]))
                 ],
               ),
             ),
@@ -238,13 +236,13 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
                   _buildServiceCard(
-                    Icons.directions_car, 
+                    Icons.directions_car,
                     "ລົດຍົນ ເລີ່ມຕົ້ນ 10.000 Kip",
                     Colors.blue,
                     width: isPad ? 180 : 160,
                   ),
                   _buildServiceCard(
-                    Icons.motorcycle, 
+                    Icons.motorcycle,
                     "ລົດຈັກ ເລີ່ມຕົ້ນ 10.000 Kip",
                     Colors.orange,
                     width: isPad ? 180 : 160,
@@ -261,27 +259,28 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
             const SizedBox(height: 16),
             // Full-width bottom cards
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 18),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 18),
               child: Column(
                 children: [
                   _buildFullWidthCard(
-                    Icons.check_circle_outline, 
+                    Icons.check_circle_outline,
                     "Tasks",
-                    "0 Tasks", 
+                    "0 Tasks",
                     Colors.blue,
                   ),
                   const SizedBox(height: 12),
                   _buildFullWidthCard(
-                    Icons.access_time, 
+                    Icons.access_time,
                     "Schedule",
-                    "No upcoming events", 
+                    "No upcoming events",
                     Colors.teal,
                   ),
                   const SizedBox(height: 12),
                   _buildFullWidthCard(
-                    Icons.bar_chart, 
+                    Icons.bar_chart,
                     "Statistics",
-                    "View your progress", 
+                    "View your progress",
                     Colors.purple,
                   ),
                 ],
@@ -339,15 +338,6 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.lock_reset, color: Colors.teal),
-            title: const Text('My Account'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Profile()));
-            },
-          ),
-          ListTile(
             leading: const Icon(Icons.person, color: Colors.teal),
             title: const Text('Get'),
             onTap: () {
@@ -358,12 +348,13 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
                       builder: (context) => const GetStartedScreen()));
             },
           ),
-          const Divider(),
           ListTile(
             leading: const Icon(Icons.restaurant_menu, color: Colors.teal),
-            title: const Text('เมนูอาหาร'),
+            title: const Text('MAP'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyApp()));
             },
           ),
           ListTile(
@@ -422,7 +413,8 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
   }
 
   // New method to build service cards with icons instead of images
-  Widget _buildServiceCard(IconData icon, String title, Color color, {double? width}) {
+  Widget _buildServiceCard(IconData icon, String title, Color color,
+      {double? width}) {
     return Container(
       width: width ?? 160,
       margin: const EdgeInsets.only(right: 12),
@@ -445,7 +437,8 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
             width: double.infinity,
             decoration: BoxDecoration(
               color: color.withOpacity(0.1),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(16)),
             ),
             child: Center(
               child: Icon(
@@ -457,10 +450,8 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.bold)
-            ),
+            child: Text(title,
+                style: const TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -469,7 +460,8 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
 
   // Updated to accept dynamic width
   Widget _buildSummaryCard(
-      String imagePath, String title, String subtitle, Color color, {double? width}) {
+      String imagePath, String title, String subtitle, Color color,
+      {double? width}) {
     return Container(
       width: width ?? (MediaQuery.of(context).size.width - 48) / 2,
       padding: const EdgeInsets.all(16),
@@ -487,22 +479,14 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
             color: Colors.white,
           ),
           const SizedBox(height: 8),
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold
-            )
-          ),
+          Text(title,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: const TextStyle(
-              color: Colors.white70, 
-              fontSize: 14
-            )
-          ),
+          Text(subtitle,
+              style: const TextStyle(color: Colors.white70, fontSize: 14)),
         ],
       ),
     );
@@ -526,22 +510,15 @@ class _FoodMenuPageState extends State<FoodMenuPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
-                  )
-                ),
+                Text(title,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold)),
                 const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: const TextStyle(
-                    color: Colors.white70, 
-                    fontSize: 14
-                  )
-                ),
+                Text(subtitle,
+                    style:
+                        const TextStyle(color: Colors.white70, fontSize: 14)),
               ],
             ),
           ),

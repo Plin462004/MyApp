@@ -4,8 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'Profile/Setting.dart';
 import 'Menu/FoodMenuPage.dart';
 import 'Menu/MaximApp.dart';
-import 'Menu/Order.dart';
-import 'Menu/Address.dart';
+import 'Menu/Ex.dart';
+import 'Menu/Delivery.dart';
 
 
 void main() async {
@@ -60,8 +60,8 @@ class _MainHomePageState extends State<MainHomePage> {
 
   final List<Widget> _pages = const [
     MaximApp(),
-    Order(),
-    Address(),
+    Ex(),
+    DeliveryPage(),
     FoodMenuPage(),
     Setting(),
   ];
