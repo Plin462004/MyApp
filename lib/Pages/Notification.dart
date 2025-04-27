@@ -1,361 +1,278 @@
 // Pages/Notification.dart
+
+// Pages/Notification.dart
 import 'package:flutter/material.dart';
 
-class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({Key? key}) : super(key: key);
+class NotificationsPage extends StatelessWidget {
+  const NotificationsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 0.5,
+        elevation: 0,
+        title: const Text(
+          'ການເເຈ້ງເຕືອນ',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        title: const Text(
-          'ຂໍ້ຄວາມ', // ข้อความในภาษาลาว
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),
-        ),
-        centerTitle: true,
+        centerTitle: false,
       ),
-      body: Stack(
-        children: [
-          // พื้นหลังลายไอคอน
-          Positioned.fill(
-            child: _buildPatternBackground(),
-          ),
-          
-          // เนื้อหาหลัก
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // ภาพประกอบการแจ้งเตือน
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    // วงกลมพื้นหลังสีชมพู
-                    Container(
-                      width: 200,
-                      height: 200,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFFCDAD7),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    
-                    // ตัวการ์ตูนถือโทรศัพท์กับการแจ้งเตือน
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // ไอคอนระฆังแจ้งเตือน
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Colors.black, width: 1),
-                          ),
-                          child: const Icon(Icons.notifications, color: Colors.black, size: 24),
-                        ),
-                        
-                        const SizedBox(width: 10),
-                        
-                        // ภาพตัวการ์ตูน
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Stack(
-                              alignment: Alignment.topLeft,
-                              children: [
-                                // ตัวการ์ตูน
-                                Image.asset(
-                                  'assets/character.png', // เปลี่ยนเป็นที่อยู่ของรูปภาพตัวการ์ตูนของคุณ
-                                  width: 120,
-                                  height: 120,
-                                  errorBuilder: (context, error, stackTrace) => _buildCharacterFallback(),
-                                ),
-                                
-                                // กล่องข้อความกับเลข "0"
-                                Positioned(
-                                  top: 0,
-                                  left: 0,
-                                  child: Container(
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: Colors.black, width: 1),
-                                    ),
-                                    child: const Text(
-                                      "0",
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                
-                const SizedBox(height: 40),
-                
-                // ข้อความด้านล่างภาพประกอบ
-                const Text(
-                  'ບໍ່ມີການແຈ້ງເຕືອນ', // ไม่มีการแจ้งเตือน
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: Text(
-                    'ມາຊ້ຳເບລອດເມື່ອຍາວອື່ນໆ ດ້ວຍຫ່າງດຽວ.', // ข้อความอธิบายภาษาลาว
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black54,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // ตัวการ์ตูนสำรองกรณีไม่มีไฟล์รูปภาพ
-  Widget _buildCharacterFallback() {
-    return SizedBox(
-      width: 120,
-      height: 120,
-      child: Stack(
-        children: [
-          // ลำตัวตัวการ์ตูน
-          Positioned(
-            right: 10,
-            child: Column(
-              children: [
-                // หัว
-                Container(
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.black, width: 2),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Stack(
-                    children: [
-                      // ตา
-                      Positioned(
-                        top: 20,
-                        left: 10,
-                        child: Container(
-                          width: 10,
-                          height: 10,
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 20,
-                        right: 10,
-                        child: Container(
-                          width: 10,
-                          height: 10,
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                      // แก้มแดง
-                      Positioned(
-                        top: 30,
-                        left: 8,
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 30,
-                        right: 8,
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                      // ปาก
-                      Positioned(
-                        bottom: 15,
-                        left: 25,
-                        child: Container(
-                          width: 10,
-                          height: 5,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Colors.black, width: 1),
-                            borderRadius: BorderRadius.circular(2),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // ลำตัว
-                Container(
-                  width: 70,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Container(
-                      width: 30,
-                      height: 50,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // โทรศัพท์ในมือ
-          Positioned(
-            left: 20,
-            top: 40,
-            child: Container(
-              width: 30,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(5),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, // ปรับเป็น center เพื่อให้เนื้อหาอยู่ตรงกลาง
+          children: [
+            SizedBox(
+              height: 150,
+              width: 150,
+              child: Image.asset(
+                'assets/icons/service.png',
+                // Replace with your actual asset path
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 24),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40),
+              child: Text(
+                'ການເເຈ້ງເຕືອນຂອງບໍລິການຈະຢູ່ທີ່ນີ້',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            // ลบ Expanded เพื่อให้เนื้อหาอยู่ตรงกลางจริงๆ
+          ],
+        ),
       ),
-    );
-  }
-
-  // พื้นหลังลายไอคอน
-  Widget _buildPatternBackground() {
-    return CustomPaint(
-      painter: PatternPainter(),
     );
   }
 }
 
-// ตัววาดลายพื้นหลัง
-class PatternPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = const Color(0xFFFEEAE8)
-      ..style = PaintingStyle.fill;
+// If you want to implement a page with actual notifications, here's a more complete version:
 
-    final random = DateTime.now().millisecondsSinceEpoch;
-    
-    // วาดไอคอนต่างๆ บนพื้นหลัง
-    for (int i = 0; i < 30; i++) {
-      final x = ((random + i * 3737) % size.width);
-      final y = ((random + i * 5151) % size.height);
-      final iconType = i % 4;
+class NotificationsPageWithList extends StatefulWidget {
+  const NotificationsPageWithList({Key? key}) : super(key: key);
+
+  @override
+  _NotificationsPageWithListState createState() => _NotificationsPageWithListState();
+}
+
+class _NotificationsPageWithListState extends State<NotificationsPageWithList> {
+  // Sample notification data
+  final List<NotificationItem> _notifications = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // You would typically load notifications from your backend here
+    // This is just sample data
+    _loadSampleNotifications();
+  }
+
+  void _loadSampleNotifications() {
+    // Add sample notifications for demonstration
+    // In a real app, you would fetch this from a service
+    setState(() {
+      _notifications.clear();
+      // You can uncomment these to show sample notifications
       
-      switch (iconType) {
-        case 0: // กล่องของขวัญ
-          _drawGiftBox(canvas, paint, x, y);
-          break;
-        case 1: // หัวใจ
-          _drawHeart(canvas, paint, x, y);
-          break;
-        case 2: // ระฆังแจ้งเตือน
-          _drawBell(canvas, paint, x, y);
-          break;
-        case 3: // โทรศัพท์
-          _drawPhone(canvas, paint, x, y);
-          break;
-      }
+      _notifications.add(
+        NotificationItem(
+          title: "ยืนยันการชำระเงินสำเร็จ",
+          message: "การชำระเงินของคุณได้รับการยืนยันเรียบร้อยแล้ว",
+          time: DateTime.now().subtract(const Duration(hours: 2)),
+          isRead: false,
+        ),
+      );
+      _notifications.add(
+        NotificationItem(
+          title: "มีข้อความใหม่",
+          message: "คุณได้รับข้อความใหม่จากระบบ",
+          time: DateTime.now().subtract(const Duration(days: 1)),
+          isRead: true,
+        ),
+      );
+      
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text(
+          'ການເເຈ້ງເຕືອນ',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: false,
+      ),
+      body: _notifications.isEmpty
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center, // ปรับเป็น center เพื่อให้เนื้อหาอยู่ตรงกลาง
+                children: [
+                  SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Image.asset(
+                      'assets/icons/service.png',
+                      // Replace with your actual asset path
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    child: Text(
+                      'ການເເຈ້ງເຕືອນຂອງບໍລິການຈະຢູ່ທີ່ນີ້',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : ListView.separated(
+              padding: const EdgeInsets.all(16),
+              itemCount: _notifications.length,
+              separatorBuilder: (context, index) => const Divider(height: 1),
+              itemBuilder: (context, index) {
+                final notification = _notifications[index];
+                return NotificationTile(
+                  notification: notification,
+                  onTap: () {
+                    setState(() {
+                      notification.isRead = true;
+                    });
+                    // Handle notification tap
+                  },
+                );
+              },
+            ),
+    );
+  }
+}
+
+// Notification data model
+class NotificationItem {
+  final String title;
+  final String message;
+  final DateTime time;
+  bool isRead;
+
+  NotificationItem({
+    required this.title,
+    required this.message,
+    required this.time,
+    this.isRead = false,
+  });
+}
+
+// Widget for individual notification items
+class NotificationTile extends StatelessWidget {
+  final NotificationItem notification;
+  final VoidCallback onTap;
+
+  const NotificationTile({
+    Key? key,
+    required this.notification,
+    required this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        color: notification.isRead ? Colors.white : Colors.blue.shade50,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (!notification.isRead)
+              Container(
+                margin: const EdgeInsets.only(top: 3, right: 8),
+                width: 8,
+                height: 8,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.blue,
+                ),
+              ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    notification.title,
+                    style: TextStyle(
+                      fontWeight: notification.isRead ? FontWeight.normal : FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    notification.message,
+                    style: TextStyle(
+                      color: Colors.grey.shade700,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    _formatTime(notification.time),
+                    style: TextStyle(
+                      color: Colors.grey.shade500,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _formatTime(DateTime time) {
+    final now = DateTime.now();
+    final difference = now.difference(time);
+    
+    if (difference.inDays > 0) {
+      return '${difference.inDays} วันที่แล้ว';
+    } else if (difference.inHours > 0) {
+      return '${difference.inHours} ชั่วโมงที่แล้ว';
+    } else if (difference.inMinutes > 0) {
+      return '${difference.inMinutes} นาทีที่แล้ว';
+    } else {
+      return 'เมื่อสักครู่';
     }
   }
-
-  void _drawGiftBox(Canvas canvas, Paint paint, double x, double y) {
-    final rect = Rect.fromCenter(center: Offset(x, y), width: 20, height: 20);
-    canvas.drawRect(rect, paint);
-    
-    final topRect = Rect.fromLTWH(x - 5, y - 15, 10, 5);
-    canvas.drawRect(topRect, paint);
-    
-    final ribbonVertical = Rect.fromLTWH(x - 1, y - 15, 2, 30);
-    canvas.drawRect(ribbonVertical, paint);
-    
-    final ribbonHorizontal = Rect.fromLTWH(x - 10, y - 1, 20, 2);
-    canvas.drawRect(ribbonHorizontal, paint);
-  }
-
-  void _drawHeart(Canvas canvas, Paint paint, double x, double y) {
-    final path = Path();
-    path.moveTo(x, y + 5);
-    path.cubicTo(x - 10, y - 8, x - 5, y - 15, x, y - 5);
-    path.cubicTo(x + 5, y - 15, x + 10, y - 8, x, y + 5);
-    canvas.drawPath(path, paint);
-  }
-
-  void _drawBell(Canvas canvas, Paint paint, double x, double y) {
-    final bellPath = Path();
-    bellPath.addOval(Rect.fromCenter(center: Offset(x, y - 8), width: 10, height: 10));
-    bellPath.addRect(Rect.fromLTWH(x - 7, y - 8, 14, 15));
-    bellPath.addArc(Rect.fromLTWH(x - 7, y + 2, 14, 10), 0, 3.14);
-    canvas.drawPath(bellPath, paint);
-    
-    final clapper = Path();
-    clapper.addOval(Rect.fromCenter(center: Offset(x, y + 8), width: 3, height: 3));
-    canvas.drawPath(clapper, paint);
-  }
-
-  void _drawPhone(Canvas canvas, Paint paint, double x, double y) {
-    final rect = RRect.fromRectAndRadius(
-      Rect.fromCenter(center: Offset(x, y), width: 12, height: 20),
-      const Radius.circular(2),
-    );
-    canvas.drawRRect(rect, paint);
-    
-    final screen = RRect.fromRectAndRadius(
-      Rect.fromCenter(center: Offset(x, y - 3), width: 8, height: 12),
-      const Radius.circular(1),
-    );
-    canvas.drawRRect(screen, paint);
-    
-    canvas.drawCircle(Offset(x, y + 6), 2, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

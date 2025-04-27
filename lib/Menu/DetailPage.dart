@@ -35,10 +35,15 @@ class _ListPageState extends State<ListPage> {
   String? selectedTip = '1000';
 
   // สำหรับสวิตช์ต่างๆ
-  bool isPriceEnabled = true;
+  // bool isPriceEnabled = true;
+  // bool isTravelEnabled = false;
+  // bool isBonusEnabled = true;
+  // bool isTipEnabled = true;
+  // สำหรับสวิตช์ต่างๆ
+  bool isPriceEnabled = false;
   bool isTravelEnabled = false;
-  bool isBonusEnabled = true;
-  bool isTipEnabled = true;
+  bool isBonusEnabled = false;
+  bool isTipEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +58,7 @@ class _ListPageState extends State<ListPage> {
           },
         ),
         title: const Text(
-          'ລາຍລະອຽດຕິດຕໍ່',
+          'ລາຍລະອຽດອໍເດີ້',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
         ),
       ),
@@ -65,7 +70,7 @@ class _ListPageState extends State<ListPage> {
                 const Divider(height: 1),
                 _buildSwitchSection(
                   'ການເພີ່ມລາຄາ',
-                  'ການເພີ່ມລາຄາຊະແດງໃຫ້ເຫັນວ່າ ຕິດຕໍ່ຂອງທ່ານແມ່ນຮີບດ່ວນ ແລະ ເຮັດໃຫ້ມີຄວາມຕ້ອງການຍິ່ງຂຶ້ນຕໍ່ຜູ້ດຳເນີນການ.',
+                  'ການເພີ່ມລາຄາສະແດງໃຫ້ເຫັນວ່າ ອໍຂອງທ່ານແມ່ນຮີບດ່ວນ ແລະ ເຮັດໃຫ້ມີຄວາມດຶງດູດຂຶ້ນຕໍ່ຜູ້ດຳເນີນການ.',
                   isPriceEnabled,
                   (value) {
                     setState(() {
@@ -77,7 +82,7 @@ class _ListPageState extends State<ListPage> {
                   _buildPriceOptions(['3000', '6000', '9000', '12000']),
                 _buildSwitchWithSlider(
                   'ກະເປົ່າເດີນທາງ',
-                  '+ 2000 ₭',
+                  '+ 5000 ₭',
                   isTravelEnabled,
                   (value) {
                     setState(() {
@@ -86,7 +91,7 @@ class _ListPageState extends State<ListPage> {
                   },
                 ),
                 _buildSwitchSection(
-                  'ເງິນໂບນັສ',
+                  'ສຳລັບເງິນທອນ',
                   '',
                   isBonusEnabled,
                   (value) {
@@ -96,10 +101,21 @@ class _ListPageState extends State<ListPage> {
                   },
                 ),
                 if (isBonusEnabled)
-                  _buildPriceOptions(['20000', '50000', '100000']),
+                  _buildPriceOptions([
+                    '10000',
+                    '20000',
+                    '30000',
+                    '40000',
+                    '50000',
+                    '60000',
+                    '70000',
+                    '80000',
+                    '90000',
+                    '100000'
+                  ]),
                 _buildSwitchSection(
                   'ເງິນທິບ',
-                  'ຈຳນວນເງິນທິບຈະຖືກເພີ່ມເຂົ້າໃນລາຄາຂອງຕິດຕໍ່.',
+                  'ຈຳນວນເງິນທິບຈະຖືກເພີ່ມເຂົ້າໃນລາຄາຂອງອໍເດີ້',
                   isTipEnabled,
                   (value) {
                     setState(() {
@@ -108,7 +124,22 @@ class _ListPageState extends State<ListPage> {
                   },
                 ),
                 if (isTipEnabled)
-                  _buildPriceOptions(['1000', '2000', '3000', '4000']),
+                  _buildPriceOptions([
+                    '1000 ₭',
+                    '2000 ₭',
+                    '3000 ₭',
+                    '4000 ₭',
+                    '5000 ₭',
+                    '6000 ₭',
+                    '7000 ₭',
+                    '8000 ₭',
+                    '9000 ₭',
+                    '10000 ₭',
+                    '20000 ₭',
+                    '30000 ₭',
+                    '40000 ₭',
+                    '50000 ₭'
+                  ]),
                 const SizedBox(height: 20),
                 _buildAddCommentButton(),
                 const SizedBox(height: 80),

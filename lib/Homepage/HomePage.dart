@@ -1,8 +1,9 @@
-// Homepage/Dokkeo.dart
+// Homepage/HomePage.dart
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'LocationPickerPage.dart';
 import 'package:myflutter/Menu/DetailPage.dart';
+import 'package:myflutter/Pages/Notification.dart'; // Import the notifications page
 
 void main() => runApp(const Dokkeo());
 
@@ -36,6 +37,9 @@ class _HomePageState extends State<HomePage> {
   String selectedMotorcycleOption = 'standard';
   String selectedDeliveryOption = 'small';
   String? fromLocation, toLocation;
+  
+  // สร้างตัวแปรสำหรับจำนวนการแจ้งเตือน (0 คือไม่มีการแจ้งเตือน)
+  int notificationCount = 0;
 
   final Map<String, List<Map<String, String>>> serviceOptions = {
     'car': [
@@ -59,6 +63,14 @@ class _HomePageState extends State<HomePage> {
     'motorcycle': 'ประเภทมอเตอร์ไซค์',
     'delivery': 'ประเภทการจัดส่ง',
   };
+
+  @override
+  void initState() {
+    super.initState();
+    // สำหรับการทดสอบ สามารถเปลี่ยนค่า notificationCount ได้ที่นี่
+    // notificationCount = 9; // ถ้าต้องการทดสอบว่ามีการแจ้งเตือน
+    notificationCount = 0; // ถ้าต้องการทดสอบว่าไม่มีการแจ้งเตือน
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,31 +117,41 @@ class _HomePageState extends State<HomePage> {
           alignment: Alignment.center,
           children: [
             IconButton(
-              icon: Icon(Icons.notifications_outlined,
+              icon: const Icon(Icons.notifications_outlined,
                   color: Colors.black87, size: 26),
-              onPressed: () {},
+              onPressed: () {
+                // Navigate to the notifications page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const NotificationsPage()),
+                );
+              },
             ),
-            Positioned(
-              top: 8,
-              right: 8,
-              child: Container(
-                width: 16,
-                height: 16,
-                decoration:
-                    BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                child: Center(
-                  child: Text('9',
-                      style: TextStyle(
+            // แสดงจำนวนการแจ้งเตือนเฉพาะเมื่อมีการแจ้งเตือน (notificationCount > 0)
+            if (notificationCount > 0)
+              Positioned(
+                top: 8,
+                right: 8,
+                child: Container(
+                  width: 16,
+                  height: 16,
+                  decoration: const BoxDecoration(
+                      color: Colors.red, shape: BoxShape.circle),
+                  child: Center(
+                    child: Text(
+                      notificationCount.toString(),
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 10,
-                          fontWeight: FontWeight.bold)),
+                          fontWeight: FontWeight.bold)
+                    ),
+                  ),
                 ),
               ),
-            ),
           ],
         ),
         IconButton(
-          icon: Icon(Icons.settings, color: Colors.black87, size: 24),
+          icon: const Icon(Icons.settings, color: Colors.black87, size: 24),
           onPressed: () {
             // Navigate to settings page
             Navigator.push(
@@ -165,7 +187,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 6), // Reduced space between fields
           _buildLocationTile(
             leading: CircleAvatar(
-              backgroundColor: Colors.teal[800],
+              backgroundColor: Colors.teal,
               radius: 14, // Reduced size
               child: const Text('🏳️',
                   style: TextStyle(
@@ -195,7 +217,7 @@ class _HomePageState extends State<HomePage> {
         contentPadding: const EdgeInsets.symmetric(
             horizontal: 12, vertical: 0), // Reduced vertical padding
         minVerticalPadding: 0, // Set minimum vertical padding to 0
-        visualDensity: VisualDensity(
+        visualDensity: const VisualDensity(
             horizontal: 0, vertical: -4), // Make the tile more compact
         leading: leading,
         title: Text(title,
@@ -217,7 +239,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-// แก้ไขส่วนของ _buildBottomActions() เพื่อเพิ่มการนำทางเมื่อกดปุ่มรายละเอียด
   Widget _buildBottomActions() {
     return Container(
       decoration: const BoxDecoration(
@@ -239,7 +260,7 @@ class _HomePageState extends State<HomePage> {
             child: ListTile(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-              visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+              visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
               minVerticalPadding: 0,
               leading:
                   const Icon(Icons.info_outline, color: Colors.teal, size: 20),
@@ -288,7 +309,7 @@ class _HomePageState extends State<HomePage> {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(
             horizontal: 8, vertical: 0), // Reduced vertical padding
-        visualDensity: VisualDensity(
+        visualDensity: const VisualDensity(
             horizontal: 0, vertical: -4), // Make the tile more compact
         minVerticalPadding: 0, // Set minimum vertical padding to 0
         leading: Icon(icon, color: Colors.teal, size: 18), // Reduced icon size
@@ -356,7 +377,6 @@ class _HomePageState extends State<HomePage> {
       onTap: onTap,
       child: Container(
         // Remove fixed width to allow expansion
-        // width: MediaQuery.of(context).size.width / 3.8, <-- Remove this line
         decoration: BoxDecoration(
           border: Border.all(
             color: isSelected ? Colors.teal : const Color(0xFFEEEEEE),
@@ -367,7 +387,11 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
         child: Column(
           children: [
-            Image.asset(image, height: 36, fit: BoxFit.contain),
+            Image.asset(
+              image, 
+              height: 45, // เพิ่มความสูงของรูปจาก 36 เป็น 45
+              fit: BoxFit.contain
+            ),
             const SizedBox(height: 4),
             Text(
               title,
@@ -455,7 +479,7 @@ class _HomePageState extends State<HomePage> {
                           child: ListTile(
                             contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 4),
-                            visualDensity: VisualDensity(
+                            visualDensity: const VisualDensity(
                                 horizontal: 0,
                                 vertical: -2), // Make the tile more compact
                             title: Text(
@@ -536,47 +560,41 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ตั้งค่า", style: TextStyle(color: Colors.black)),
+        title: const Text("ການຕັ້ງຄ່າ", style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 1,
       ),
       body: ListView(
         children: [
           ListTile(
-            leading: Icon(Icons.person, color: Colors.teal),
-            title: Text("โปรไฟล์"),
-            trailing: Icon(Icons.chevron_right),
+            leading: const Icon(Icons.person, color: Colors.teal),
+            title: const Text("ໂປຮຟາຍ"),
+            trailing: const Icon(Icons.chevron_right),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.history, color: Colors.teal),
-            title: Text("ประวัติการเดินทาง"),
-            trailing: Icon(Icons.chevron_right),
+            leading: const Icon(Icons.history, color: Colors.teal),
+            title: const Text("ປະຫວັດການເດີນທາງ"),
+            trailing: const Icon(Icons.chevron_right),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.payment, color: Colors.teal),
-            title: Text("การชำระเงิน"),
-            trailing: Icon(Icons.chevron_right),
+            leading: const Icon(Icons.payment, color: Colors.teal),
+            title: const Text("ພາກພື້ນ"),
+            trailing: const Icon(Icons.chevron_right),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.language, color: Colors.teal),
-            title: Text("ภาษา"),
-            trailing: Icon(Icons.chevron_right),
+            leading: const Icon(Icons.language, color: Colors.teal),
+            title: const Text("ພາສາ"),
+            trailing: const Icon(Icons.chevron_right),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.help_outline, color: Colors.teal),
-            title: Text("ความช่วยเหลือ"),
-            trailing: Icon(Icons.chevron_right),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: Icon(Icons.info_outline, color: Colors.teal),
-            title: Text("เกี่ยวกับแอป"),
-            trailing: Icon(Icons.chevron_right),
+            leading: const Icon(Icons.temple_buddhist_outlined, color: Colors.teal),
+            title: const Text("ຮູບເເບບ"),
+            trailing: const Icon(Icons.chevron_right),
             onTap: () {},
           ),
         ],
