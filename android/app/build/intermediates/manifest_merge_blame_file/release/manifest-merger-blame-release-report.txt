@@ -1,0 +1,101 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.myflutter"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="35" />
+10
+11    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+11-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:2:2-76
+11-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:2:19-73
+12    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+12-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:3:2-78
+12-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:3:19-75
+13    <!--
+14	Required to query activities that can process text, see:
+15	https://developer.android.com/training/package-visibility and
+16	https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+17	
+18	In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin.
+19    -->
+20    <queries>
+20-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:31:2-36:12
+21        <intent>
+21-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:32:3-35:12
+22            <action android:name="android.intent.action.PROCESS_TEXT" />
+22-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:33:4-64
+22-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:33:12-61
+23
+24            <data android:mimeType="text/plain" />
+24-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:34:4-42
+24-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:34:10-39
+25        </intent>
+26    </queries>
+27
+28    <application
+29        android:name="android.app.Application"
+29-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:4:41-74
+30        android:extractNativeLibs="true"
+31        android:icon="@mipmap/ic_launcher"
+31-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:4:75-109
+32        android:label="myflutter" >
+32-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:4:15-40
+33        <activity
+33-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:5:3-17:14
+34            android:name="com.example.myflutter.MainActivity"
+34-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:5:13-41
+35            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+35-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:5:156-306
+36            android:exported="true"
+36-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:5:42-65
+37            android:hardwareAccelerated="true"
+37-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:5:307-341
+38            android:launchMode="singleTop"
+38-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:5:66-96
+39            android:taskAffinity=""
+39-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:5:97-120
+40            android:theme="@style/LaunchTheme"
+40-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:5:121-155
+41            android:windowSoftInputMode="adjustResize" >
+41-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:5:342-384
+42
+43            <!--
+44			Specifies an Android theme to apply to this Activity as soon as
+45			the Android process has started. This theme is visible to the user
+46			while the Flutter UI initializes. After that, this theme continues
+47			to determine the Window background behind the Flutter UI.
+48            -->
+49            <meta-data
+49-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:12:4-111
+50                android:name="io.flutter.embedding.android.NormalTheme"
+50-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:12:15-70
+51                android:resource="@style/NormalTheme" />
+51-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:12:71-108
+52
+53            <intent-filter>
+53-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:13:4-16:20
+54                <action android:name="android.intent.action.MAIN" />
+54-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:14:5-57
+54-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:14:13-54
+55
+56                <category android:name="android.intent.category.LAUNCHER" />
+56-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:15:5-65
+56-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:15:15-62
+57            </intent-filter>
+58        </activity>
+59        <!--
+60		Don't delete the meta-data below.
+61		This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+62        -->
+63        <meta-data
+63-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:22:3-66
+64            android:name="flutterEmbedding"
+64-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:22:14-45
+65            android:value="2" />
+65-->C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\AndroidManifest.xml:22:46-63
+66    </application>
+67
+68</manifest>

@@ -1,0 +1,2 @@
+C:/Users/Soulin/Documents/GitHub/MyApp/android/app/.cxx/RelWithDebInfo/4g4a5z3l/x86/CMakeFiles/edit_cache.dir
+C:/Users/Soulin/Documents/GitHub/MyApp/android/app/.cxx/RelWithDebInfo/4g4a5z3l/x86/CMakeFiles/rebuild_cache.dir

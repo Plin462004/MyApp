@@ -1,0 +1,8 @@
+com.example.myflutter.app-pngs-0 C:\Users\Soulin\Documents\GitHub\MyApp\android\app\build\generated\res\pngs\release
+com.example.myflutter.app-resValues-1 C:\Users\Soulin\Documents\GitHub\MyApp\android\app\build\generated\res\resValues\release
+com.example.myflutter.app-packageReleaseResources-2 C:\Users\Soulin\Documents\GitHub\MyApp\android\app\build\intermediates\incremental\release\packageReleaseResources\merged.dir
+com.example.myflutter.app-packageReleaseResources-3 C:\Users\Soulin\Documents\GitHub\MyApp\android\app\build\intermediates\incremental\release\packageReleaseResources\stripped.dir
+com.example.myflutter.app-merged-not-compiled-resources-4 C:\Users\Soulin\Documents\GitHub\MyApp\android\app\build\intermediates\merged-not-compiled-resources\release
+com.example.myflutter.app-merged_res-5 C:\Users\Soulin\Documents\GitHub\MyApp\android\app\build\intermediates\merged_res\release
+com.example.myflutter.app-main-6 C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\main\res
+com.example.myflutter.app-release-7 C:\Users\Soulin\Documents\GitHub\MyApp\android\app\src\release\res
